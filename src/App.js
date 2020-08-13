@@ -8,9 +8,7 @@ function App() {
       <header className="App-header">
         <p> Esto es un Ta-Te-Ti</p>
       </header>
-      <div>
         <Tateti/>
-      </div>
     </div>
   );
 }

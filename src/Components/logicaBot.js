@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const jugarBot = (marca, tablero) => {
   const randomNum = parseInt(Math.random() * 100);
 

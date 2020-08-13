@@ -5,6 +5,7 @@ export const verificarEstadoJuego = tablero => {
   let marcaAsignada;
   let fila;
   let col;
+  let rows = [];
 
   for (fila = 0; fila < 3; fila++) {
     hayTateti = true;
@@ -16,13 +17,16 @@ export const verificarEstadoJuego = tablero => {
     };
 
     for (col = 0; col < 3; col++) {
+      rows.push({ col, fila });
+
       if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
+        rows = [];
         hayTateti = false;
         break;
       }
     }
 
-    if (hayTateti) return estadoJuego.terminado;
+    if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
   }
 
   for (col = 0; col < 3; col++) {
@@ -35,13 +39,15 @@ export const verificarEstadoJuego = tablero => {
     };
 
     for (fila = 0; fila < 3; fila++) {
+      rows.push({ col, fila });
       if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
+        rows = [];
         hayTateti = false;
         break;
       }
     }
 
-    if (hayTateti) return estadoJuego.terminado;
+    if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
   }
 
   col = 0;
@@ -52,8 +58,9 @@ export const verificarEstadoJuego = tablero => {
   if (!marcaAsignada) hayTateti = false;
 
   while (col < 3 && fila < 3 && hayTateti) {
-
+    rows.push({ col, fila });
     if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
+      rows = [];
       hayTateti = false;
       break;
     }
@@ -62,7 +69,7 @@ export const verificarEstadoJuego = tablero => {
     fila++;
   }
 
-  if (hayTateti) return estadoJuego.terminado;
+  if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
 
   col = 0;
   fila = 2;
@@ -72,8 +79,10 @@ export const verificarEstadoJuego = tablero => {
   if (!marcaAsignada) hayTateti = false;
 
   while (col < 3 && fila >= 0 && hayTateti) {
+    rows.push({ col, fila });
 
     if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
+      rows = [];
       hayTateti = false;
       break;
     }
@@ -82,9 +91,9 @@ export const verificarEstadoJuego = tablero => {
     fila--;
   }
 
-  if (hayTateti) return estadoJuego.terminado;
+  if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
 
   const empate = tablero.filter(i => !i.marca).length === 0;
 
-  return empate ? estadoJuego.empate : estadoJuego.continua;
+  return { estado : empate ? estadoJuego.empate : estadoJuego.continua, ganador: '', rows };
 };
