@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Twitch
+## Este proyecto fue creado en mi streaming www.twitch.tv/salsaTecnologica
+### Puedes encontrarlo deployado en https://bot-tateti.herokuapp.com
 
 ## Available Scripts
 
