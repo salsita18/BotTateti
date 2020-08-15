@@ -4,7 +4,7 @@ import './Tateti.css';
 import { useTateti } from './CustomHooks/useTateti';
 import Board from './Board';
 import Score from './Score';
-import { Grid } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import TatetiAppBar from './TatetiAppBar';
 import UserPanel from './UserPanel';
 import TabPanel from './Common/TabPanel';
@@ -51,6 +51,7 @@ const Tateti = () => {
             estadoGlobal={estadoGlobal} 
             jugar={jugar} 
             fixedOrder={fixedOrder} 
+            jugador={jugador}
           />
         </TabPanel>
       </Grid>      

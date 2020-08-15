@@ -1,5 +1,33 @@
 export const estadoJuego = { continua: 'continua', empate: 'Empate', terminado: 'Hay un ganador!' };
 
+const vertificarLinea = (tablero, fila, col, m, marca, rows, recorriendo) => {
+  const currMarc = tablero.find(i => i.fila === fila && i.col === col).marca;
+  rows.push({col, fila});
+
+  if (col >= m-1) { 
+    return currMarc && currMarc === marca;
+  }
+
+  if (!currMarc || currMarc !== marca) return false;
+
+  if (recorriendo === 'fila') {
+    fila++;
+  } else {
+    col++;
+  }
+
+  return vertificarLinea(tablero, fila, col, m, marca, rows);
+};
+
+const verificarTateti = (tablero, x, m) => {
+  if (x >= m-1) {
+
+  } 
+
+  return verificarTateti(tablero, x+1, m)
+}
+
+
 export const verificarEstadoJuego = tablero => {
   let hayTateti;
   let marcaAsignada;
@@ -16,18 +44,16 @@ export const verificarEstadoJuego = tablero => {
       continue;
     };
 
-    for (col = 0; col < 3; col++) {
-      rows.push({ col, fila });
-
-      if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
-        rows = [];
-        hayTateti = false;
-        break;
-      }
+    if (vertificarLinea(tablero, fila, 0, 3, marcaAsignada, rows, 'col')) {
+      hayTateti = true;
+      break;
     }
 
-    if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
+    hayTateti = false;
+    rows = [];
   }
+
+  if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
 
   for (col = 0; col < 3; col++) {
     hayTateti = true;
@@ -39,12 +65,14 @@ export const verificarEstadoJuego = tablero => {
     };
 
     for (fila = 0; fila < 3; fila++) {
-      rows.push({ col, fila });
-      if (tablero.find(i => i.col === col && i.fila === fila).marca !== marcaAsignada) {
-        rows = [];
-        hayTateti = false;
+ 
+      if (vertificarLinea(tablero, fila, 0, 3, marcaAsignada, rows, 'col')) {
+        hayTateti = true;
         break;
       }
+  
+      hayTateti = false;
+      rows = [];
     }
 
     if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };

@@ -7,60 +7,55 @@ const useStyles = makeStyles(theme => ({
   paper: {
     margin: '1em',
     magin: 'auto',
+    width: '100%'
   },
   textField: {
     width: '80%',
     margin: 'auto',
-    marign: '1em'
   }
 }));
-
 
 const UserPanel = props => {
   const classes = useStyles();
 
   return (
-    <>
-      <Grid item xs={12} sm={4}>
-        <Paper className={classes.paper}>
-          <TextField
-            className={classes.textField}
-            id='user-nick-textFiel'
-            label='Tu nick de jugador'
-            defaultValue={`Player_${new Date().getUTCMilliseconds()}`}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Paper>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Paper className={classes.paper} style={{textAlign: 'right'}}>
-          <ColorPicker 
-            setColor={props.setSelfColor}
-            color={props.selfColor} 
-            notDisponible={[props.boardColor, props.opponentColor]}
-            label='Tu color: '
-          />
-          <ColorPicker 
-            setColor={props.setBoardColor}
-            color={props.boardColor} 
-            notDisponible={[props.selfColor, props.opponentColor]}
-            label='Color del Tablero: '
+    <Paper className={classes.paper}>
+      <Grid container spacing={0}>
+        <Grid item xs={12} sm={6}>
+          <div style={{marginTop: '2em'}}>
+            <TextField
+              className={classes.textField}
+              id='user-nick-textFiel'
+              label='Tu nick de jugador'
+              defaultValue={`Player_${new Date().getUTCMilliseconds()}`}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
-          <ColorPicker 
-            setColor={props.setOpponentColor}
-            color={props.opponentColor} 
-            notDisponible={[props.selfColor, props.boardColor]}
-            label='Color del oponente: '
-          />
-        </Paper>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+            <ColorPicker 
+              setColor={props.setSelfColor}
+              color={props.selfColor} 
+              notDisponible={[props.boardColor, props.opponentColor]}
+              label='Tu color: '
+            />
+            <ColorPicker 
+              setColor={props.setBoardColor}
+              color={props.boardColor} 
+              notDisponible={[props.selfColor, props.opponentColor]}
+              label='Color del Tablero: '
+              />
+            <ColorPicker 
+              setColor={props.setOpponentColor}
+              color={props.opponentColor} 
+              notDisponible={[props.selfColor, props.boardColor]}
+              label='Color del oponente: '
+            />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={4}>
-        <div>aqui puedes elegir los colores de la app</div>
-      </Grid>
-    </>
-
+    </Paper>
   );
 };
 

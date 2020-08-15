@@ -1,7 +1,7 @@
 .game-board {
   display: grid;
-  grid-template-rows: 200px 200px 200px;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 7em 7em 7em;
+  grid-template-columns: 7em 7em 7em;
 }
 
 body {
@@ -14,6 +14,8 @@ border: 1px solid #555;
 display: flex;
 align-items: center;
 justify-content: center;
+text-align: center;
+align-items: center;
 color: #AAA;
 font-size: 60px;
 font-weight: bold;

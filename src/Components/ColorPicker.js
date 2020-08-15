@@ -33,64 +33,64 @@ const ColorPicker = props => {
           <span>{props.label}</span>
         </Grid>
         <Grid item xs={8} container spacing={0}>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'rojo'}
             onChange={handleChange}
             style={{color: getColor('rojo')}}
-            value="rojo"
-            name="radio-button-demo"
+            value='rojo'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'A' }}
           />
         </Grid>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'azul'}
             onChange={handleChange}
             style={{color: getColor('azul')}}
             value='azul'
-            color="default"
-            name="radio-button-demo"
+            color='default'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'B' }}
           />
         </Grid>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'verde'}
             onChange={handleChange}
             style={{color: getColor('verde')}}
-            value="verde"
-            name="radio-button-demo"
+            value='verde'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'C' }}
           />
         </Grid>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'amarillo'}
             onChange={handleChange}
             style={{color: getColor('amarillo')}}
-            value="amarillo"
-            name="radio-button-demo"
+            value='amarillo'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'D' }}
           />
         </Grid>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'negro'}
             onChange={handleChange}
             style={{color: getColor('negro')}}
-            value="negro"
-            name="radio-button-demo"
+            value='negro'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'E' }}
           />
         </Grid>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={4} sm={2}>
           <Radio
             checked={props.color === 'marron'}
             onChange={handleChange}
             style={{color: getColor('marron')}}
-            value="marron"
-            name="radio-button-demo"
+            value='marron'
+            name='radio-button-demo'
             inputProps={{ 'aria-label': 'F' }}
           />
         </Grid>
