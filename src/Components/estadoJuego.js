@@ -1,10 +1,12 @@
 export const estadoJuego = { continua: 'continua', empate: 'Empate', terminado: 'Hay un ganador!' };
 
-const vertificarLinea = (tablero, fila, col, m, marca, rows, recorriendo) => {
+const verificarLinea = (tablero, fila, col, m, marca, rows, recorriendo) => {
   const currMarc = tablero.find(i => i.fila === fila && i.col === col).marca;
   rows.push({col, fila});
 
-  if (col >= m-1) { 
+  const cota = recorriendo === 'fila' ? fila : col;
+
+  if (cota >= m-1) { 
     return currMarc && currMarc === marca;
   }
 
@@ -16,15 +18,40 @@ const vertificarLinea = (tablero, fila, col, m, marca, rows, recorriendo) => {
     col++;
   }
 
-  return vertificarLinea(tablero, fila, col, m, marca, rows);
+  return verificarLinea(tablero, fila, col, m, marca, rows, recorriendo);
 };
 
-const verificarTateti = (tablero, x, m) => {
-  if (x >= m-1) {
+const verificarTateti = (tablero, x, m, sentido, rows) => {
+  let fila;
+  let col;
+  let recorriendo;
+  
+  if (sentido === 'fila') {
+    recorriendo = 'col';
+    col = 0;
+    fila = x;
+  } else {
+    recorriendo = 'fila '
+    fila = 0;
+    col = x;
+  }
+  const marca = tablero.find(i => i.fila === fila && i.col === col).marca;
+  
+  if (x >= m-1) { 
+    const res = { resultado: verificarLinea(tablero, fila, col, m, marca, rows, recorriendo), marca };
 
-  } 
+    if (!res.resultado) rows.splice(0, rows.length);
 
-  return verificarTateti(tablero, x+1, m)
+    return res;
+  }
+
+  if (verificarLinea(tablero, fila, col, m, marca, rows, recorriendo)) {
+    return { resultado: true, marca }
+  }
+
+  rows.splice(0, rows.length);
+
+  return verificarTateti(tablero, x+1, m, sentido, rows);
 }
 
 
@@ -35,47 +62,16 @@ export const verificarEstadoJuego = tablero => {
   let col;
   let rows = [];
 
-  for (fila = 0; fila < 3; fila++) {
-    hayTateti = true;
-    marcaAsignada = tablero.find(i => i.col === 0 && i.fila === fila).marca;
+  let verificacion = verificarTateti(tablero, 0, 3, 'fila', rows);
 
-    if (!marcaAsignada) {
-      hayTateti = false;
-      continue;
-    };
-
-    if (vertificarLinea(tablero, fila, 0, 3, marcaAsignada, rows, 'col')) {
-      hayTateti = true;
-      break;
-    }
-
-    hayTateti = false;
-    rows = [];
+  if (verificacion.resultado) {
+    return { estado: estadoJuego.terminado, ganador: verificacion.marca, rows };
   }
 
-  if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
+  verificacion = verificarTateti(tablero, 0, 3, 'col', rows);
 
-  for (col = 0; col < 3; col++) {
-    hayTateti = true;
-    marcaAsignada = tablero.find(i => i.col === col && i.fila === 0).marca;
-
-    if (!marcaAsignada) {
-      hayTateti = false;
-      continue;
-    };
-
-    for (fila = 0; fila < 3; fila++) {
- 
-      if (vertificarLinea(tablero, fila, 0, 3, marcaAsignada, rows, 'col')) {
-        hayTateti = true;
-        break;
-      }
-  
-      hayTateti = false;
-      rows = [];
-    }
-
-    if (hayTateti) return { estado: estadoJuego.terminado, ganador: marcaAsignada, rows };
+  if (verificacion.resultado) {
+    return { estado: estadoJuego.terminado, ganador: verificacion.marca, rows };
   }
 
   col = 0;
